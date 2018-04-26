@@ -1,6 +1,6 @@
 ntp {
-{% for server in ntp.server %}
+    {% for server in ntp.server %}
     server {{ server }};
-{% endfor %}
+    {% endfor %}
     source-address {{ ntp.source }};
 }
