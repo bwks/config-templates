@@ -1,0 +1,24 @@
+hostname: # string
+
+domain:
+  name: # string
+
+snmp:
+  servers: # list
+
+syslog:
+  source: # string
+  servers: # list
+
+
+vlans: # list
+  - name: # string
+    number: # integer
+
+ntp:
+  source: # string
+  servers: # list
+
+ssh:
+  version: # integer
+  source: # string
