@@ -1,0 +1,5 @@
+{% for vlan in vlans %}
+{{ vlan.name }}-vl{{ vlan.number }} {
+    vlan-id {{ vlan.number }};
+}
+{% endfor %}
