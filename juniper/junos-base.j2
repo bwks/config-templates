@@ -5,7 +5,24 @@ system {
     {% include 'junos-hostname.j2' %}
     {% endif %}
     {% endblock hostname %}
-
+    {% block root_authentication %}
+    root-authentication {
+        encrypted-password "$1$nq.N1UsY$JxA/ESAj3KuXseXE597gg0"; ## SECRET-DATA
+        ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key"; ## SECRET-DATA
+    }
+    {% endblock root_authentication %}
+    {% block login %}
+    login {
+        user vagrant {
+            uid 2000;
+            class super-user;
+            authentication {
+                encrypted-password "$1$7DFMugRy$LaAGaRZOSGLIRGZKeB5zY1"; ## SECRET-DATA
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key"; ## SECRET-DATA
+            }
+        }
+    }
+    {% endblock login %}
     {% block services %}
     services {
         {% block ssh %}
@@ -25,11 +42,26 @@ system {
 
     {% block syslog %}
     syslog {
+        user * {
+            any emergency;
+        }
         {% if syslog.servers %}
         {% include 'junos-syslog.j2' %}
         {% endif %}
+        file messages {
+            any any;
+            authorization info;
+        }
+        file interactive-commands {
+            interactive-commands any;
+        }
     }
     {% endblock syslog %}
+    license {
+        autoupdate {
+            url https://ae1.juniper.net/junos/key_retrieval;
+        }
+    }
     {% block ntp %}
     ntp {
         {% if ntp.servers %}
@@ -40,13 +72,42 @@ system {
 }
 {% endblock system %}
 {% block interface %}
+interfaces {
+    ge-0/0/0 {
+        unit 0 {
+            family inet {
+                dhcp;
+            }
+        }
+    }
+}
 {% endblock interface %}
 {% block security %}
+security {
+    forwarding-options {
+        family {
+            inet6 {
+                mode packet-based;
+            }
+            mpls {
+                mode packet-based;
+            }
+        }
+    }
+}
 {% endblock security %}
+{% block routing_instance %}
+routing-instances {
+    mgmt {
+        description "management routing instance";
+        interface ge-0/0/0.0;
+    }
+}
+{% endblock routing_instance %}
 {% block vlan %}
 vlans {
-{% if vlans %}
-{% include 'junos-vlan.j2' %}
-{% endif %}
+    {% if vlans %}
+    {% include 'junos-vlan.j2' %}
+    {% endif %}
 }
 {% endblock %}
