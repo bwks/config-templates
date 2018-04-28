@@ -12,7 +12,6 @@ syslog:
   source: # string
   servers: # list
 
-
 vlans: # list
   - name: # string
     number: # integer

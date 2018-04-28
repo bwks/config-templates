@@ -1,0 +1,36 @@
+{% block syslog %}
+{% if syslog.servers %}
+{% include 'eos-syslog.j2' %}
+{% endif %}
+!
+{% endblock %}
+{% block hostname %}
+{% if hostname %}
+{% include 'eos-hostname.j2' %}
+{% endif %}
+!
+{% endblock %}
+{% block name_servers %}
+{% if domain.name_servers %}
+{% include 'eos-domain-name-server.j2' %}
+{% endif %}
+!
+{% endblock %}
+{% block domain_name %}
+{% if domain.name %}
+{% include 'eos-domain-name.j2' %}
+{% endif %}
+!
+{% endblock %}
+{% block ntp %}
+{% if ntp.servers %}
+{% include 'eos-ntp.j2' %}
+{% endif %}
+!
+{% endblock %}
+{% block vlans %}
+{% if vlans %}
+{% include 'eos-vlan.j2' %}
+{% endif %}
+!
+{% endblock %}
