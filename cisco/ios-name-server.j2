@@ -1,0 +1,3 @@
+{% for server in domain.name_servers %}
+ip name-server {{ server }}
+{% endfor %}

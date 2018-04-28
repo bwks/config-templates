@@ -1,0 +1,5 @@
+name-server {
+    {% for server in domain.name_servers %}
+    {{ server }};
+    {% endfor %}
+}

@@ -2,6 +2,8 @@ hostname: # string
 
 domain:
   name: # string
+  name_servers: # list
+  source: # string
 
 snmp:
   servers: # list
