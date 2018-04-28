@@ -1,0 +1,30 @@
+{% block hostname %}
+{% if hostname %}
+{% include 'ios-hostname.j2' %}
+{% endif %}
+!
+{% endblock %}
+{% block domain_name %}
+{% if domain.name %}
+{% include 'ios-domain-name.j2' %}
+{% endif %}
+!
+{% endblock %}
+{% block name_servers %}
+{% if domain.name_servers %}
+{% include 'ios-domain-name-servers.j2' %}
+{% endif %}
+!
+{% endblock %}
+{% block ntp %}
+{% if ntp.servers %}
+{% include 'ios-ntp.j2' %}
+{% endif %}
+!
+{% endblock %}
+{% block syslog %}
+{% if syslog.servers %}
+{% include 'ios-syslog.j2' %}
+{% endif %}
+!
+{% endblock %}

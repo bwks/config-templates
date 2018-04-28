@@ -1,4 +1,6 @@
+{% if ntp.source %}
 ntp source {{ ntp.source }}
+{% endif %}
 {% for server in ntp.servers %}
 ntp server {{ server }}
 {% endfor %}
