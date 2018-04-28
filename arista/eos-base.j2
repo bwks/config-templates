@@ -1,36 +1,86 @@
+{% block event_handler %}
+event-handler ALTER-VAGRANT-SHELL
+   trigger on-intf Management0 ip
+   action bash sudo sed -i 's:^username vagrant privilege 15 shell /bin/bash :username vagrant privilege 15 :g' /mnt/flash/startup-config
+   delay 60
+!
+event-handler COPY-STARTUP-TO-RUNNING
+   trigger on-intf Management0 ip
+   action bash FastCli -p 15 -c 'configure replace startup-config'
+   delay 70
+!
+{% endblock event_handler %}
+
 {% block syslog %}
 {% if syslog.servers %}
 {% include 'eos-syslog.j2' %}
 {% endif %}
 !
-{% endblock %}
+{% endblock syslog %}
+
 {% block hostname %}
 {% if hostname %}
 {% include 'eos-hostname.j2' %}
-{% endif %}
+{% endif syslog %}
 !
 {% endblock %}
+
 {% block name_servers %}
 {% if domain.name_servers %}
 {% include 'eos-domain-name-server.j2' %}
-{% endif %}
+{% endif name_servers %}
 !
 {% endblock %}
+
 {% block domain_name %}
 {% if domain.name %}
 {% include 'eos-domain-name.j2' %}
 {% endif %}
 !
-{% endblock %}
+{% endblock domain_name %}
+
 {% block ntp %}
 {% if ntp.servers %}
 {% include 'eos-ntp.j2' %}
 {% endif %}
 !
-{% endblock %}
+{% endblock ntp %}
+
+{% block spanning_tree %}
+spanning-tree mode mstp
+!
+{% endblock spanning_tree %}
+
+{% block aaa %}
+aaa authorization exec default local
+!
+no aaa root
+!
+username vagrant privilege 15 secret sha512 $6$3kgdKcJLJ3j/0N51$a0YshIzKL3xtdwP6XXXRlY9B8yHFK/tLdg0I95YUIaW7oHqLsgK9TxMg8/0bL6VDkImuWT.g7WRKTxi8nNPtA1
+username vagrant sshkey ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key
+!
+{% endblock aaa %}
+
 {% block vlans %}
 {% if vlans %}
 {% include 'eos-vlan.j2' %}
 {% endif %}
 !
-{% endblock %}
+{% endblock vlans %}
+
+{% block interfaces %}
+interface Management1
+   ip address dhcp
+!
+{% endblock interfaces %}
+
+{% block ip_routing %}
+no ip routing
+!
+{% endblock ip_routing %}
+
+{% block management_api %}
+management api http-commands
+   no shutdown
+!
+{% endblock management_api %}
