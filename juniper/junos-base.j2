@@ -26,20 +26,15 @@ system {
     {% block services %}
     services {
         {% block ssh %}
-        {% if ssh %}
         {% include 'junos-ssh.j2' %}
-        {% endif %}
         {% endblock ssh %}
 
         {% block netconf %}
-        {% if ssh %}
         {% include 'junos-netconf.j2' %}
-        {% endif %}
         {% endblock netconf %}
 
     }
     {% endblock services %}
-
     {% block syslog %}
     syslog {
         user * {
@@ -57,11 +52,13 @@ system {
         }
     }
     {% endblock syslog %}
+    {% block license %}
     license {
         autoupdate {
             url https://ae1.juniper.net/junos/key_retrieval;
         }
     }
+    {% endblock license %}
     {% block ntp %}
     ntp {
         {% if ntp.servers %}
@@ -110,4 +107,4 @@ vlans {
     {% include 'junos-vlan.j2' %}
     {% endif %}
 }
-{% endblock %}
+{% endblock vlan %}
