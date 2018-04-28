@@ -1,7 +1,5 @@
-syslog {
-    {% for server in syslog.servers %}
-    host {{ server }} {
-        any info;
-    }
-    {% endfor %}
+{% for server in syslog.servers %}
+host {{ server }} {
+    any info;
 }
+{% endfor %}

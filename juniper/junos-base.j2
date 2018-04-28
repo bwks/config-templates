@@ -1,0 +1,52 @@
+{% block system %}
+system {
+    {% block hostname %}
+    {% if hostname %}
+    {% include 'junos-hostname.j2' %}
+    {% endif %}
+    {% endblock hostname %}
+
+    {% block services %}
+    services {
+        {% block ssh %}
+        {% if ssh %}
+        {% include 'junos-ssh.j2' %}
+        {% endif %}
+        {% endblock ssh %}
+
+        {% block netconf %}
+        {% if ssh %}
+        {% include 'junos-netconf.j2' %}
+        {% endif %}
+        {% endblock netconf %}
+
+    }
+    {% endblock services %}
+
+    {% block syslog %}
+    syslog {
+        {% if syslog.servers %}
+        {% include 'junos-syslog.j2' %}
+        {% endif %}
+    }
+    {% endblock syslog %}
+    {% block ntp %}
+    ntp {
+        {% if ntp.servers %}
+        {% include 'junos-ntp.j2' %}
+        {% endif %}
+    }
+    {% endblock ntp %}
+}
+{% endblock system %}
+{% block interface %}
+{% endblock interface %}
+{% block security %}
+{% endblock security %}
+{% block vlan %}
+vlans {
+{% if vlans %}
+{% include 'junos-vlan.j2' %}
+{% endif %}
+}
+{% endblock %}
