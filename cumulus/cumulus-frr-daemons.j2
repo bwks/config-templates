@@ -21,17 +21,17 @@
 # The watchfrr daemon is always started. Per default in monitoring-only but
 # that can be changed via /etc/frr/daemons.conf.
 #
-zebra={{ frr.daemons.zebra|default(no, true) }}
-bgpd={{ frr.daemons.bgp|default(no, true) }}
-ospfd={{ frr.daemons.ospf_v2|default(no, true) }}
-ospf6d={{ frr.daemons.ospf_v3|default(no, true) }}
+zebra={{ frr.daemons.zebra|default(no) }}
+bgpd={{ frr.daemons.bgp|default(no) }}
+ospfd={{ frr.daemons.ospf_v2|default(no) }}
+ospf6d={{ frr.daemons.ospf_v3|default(no) }}
 ripd=no
 ripngd=no
-isisd={{ frr.daemons.isis|default(no, true) }}
+isisd={{ frr.daemons.isis|default(no) }}
 pimd=no
 ldpd=no
 nhrpd=no
-eigrpd={{ frr.daemons.eigrp|default(no, true) }}
+eigrpd={{ frr.daemons.eigrp|default(no) }}
 babeld=no
 sharpd=no
 pbrd=no
