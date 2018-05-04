@@ -21,17 +21,41 @@
 # The watchfrr daemon is always started. Per default in monitoring-only but
 # that can be changed via /etc/frr/daemons.conf.
 #
-zebra={% if frr.daemons.zebra %}{{ frr.daemons.zebra }}{% else %}no{% endif %}
-bgpd={% if frr.daemons.bgp %}{{ frr.daemons.bgp }}{% else %}no{% endif %}
-ospfd={% if frr.daemons.ospf_v2 %}{{ frr.daemons.ospf_v2 }}{% else %}no{% endif %}
-ospf6d={% if frr.daemons.ospf_v3 %}{{ frr.daemons.ospf_v3 }}{% else %}no{% endif %}
+{% if frr.daemons.zebra %}
+zebra={{ frr.daemons.zebra }}
+{% else %}
+zebra=no
+{% endif %}
+{% if frr.daemons.bgp %}
+bgpd={{ frr.daemons.bgp }}
+{% else %}
+bgpd=no
+{% endif %}
+{% if frr.daemons.ospf_v2 %}
+ospfd={{ frr.daemons.ospf_v2 }}
+{% else %}
+ospfd=no
+{% endif %}
+{% if frr.daemons.ospf_v3 %}
+ospf6d={{ frr.daemons.ospf_v3 }}
+{% else %}
+ospf6d=no
+{% endif %}
 ripd=no
 ripngd=no
-isisd={% if frr.daemons.isis %}{{ frr.daemons.isis }}{% else %}no{% endif %}
+{% if frr.daemons.isis %}
+isisd={{ frr.daemons.isis }}
+{% else %}
+isisd=no
+{% endif %}
 pimd=no
 ldpd=no
 nhrpd=no
-eigrpd={% if frr.daemons.eigrp %}{{ frr.daemons.eigrp }}{% else %}no{% endif %}
+{% if frr.daemons.eigrp %}
+eigrpd={{ frr.daemons.eigrp }}
+{% else %}
+eigrpd=no
+{% endif %}
 babeld=no
 sharpd=no
 pbrd=no
