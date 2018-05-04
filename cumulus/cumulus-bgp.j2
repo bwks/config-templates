@@ -1,0 +1,16 @@
+router bgp {{ bgp.asn }}
+ bgp router-id {{ bgp.router_id }}
+ bgp bestpath as-path multipath-relax
+ bgp bestpath compare-routerid
+{% if bgp.peer_groups %}
+{% for peer_group in bgp.peer_groups %}
+ neighbor {{ peer_group.name }} peer-group
+ neighbor {{ peer_group.name }} remote-as {{ peer_group.type }}
+ neighbor {{ peer_group.name }} description {{ peer_group.description }}
+ neighbor {{ peer_group.name }} capability extended-nexthop
+ {% for interface in peer_group.interfaces %}
+ neighbor {{ interface }} interface peer-group {{ peer_group.name }}
+ {% endfor %}
+{% endfor %}
+{% endif %}
+!
