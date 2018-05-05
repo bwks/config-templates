@@ -1,7 +1,9 @@
 {% if interfaces.mgmt.dhcp %}
+auto {{ interfaces.mgmt.name }}
 iface {{ interfaces.mgmt.name }} inet dhcp
     alias {{ interfaces.mgmt.description }}
 {% else %}
+auto {{ interfaces.mgmt.name }}
 iface {{ interfaces.mgmt.name }} inet static
     alias {{ interfaces.mgmt.description }}
     address {{ interfaces.mgmt.ipv4_address }}/{{ interfaces.mgmt.ipv4_prefix_length }}
