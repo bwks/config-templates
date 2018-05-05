@@ -1,0 +1,7 @@
+auto bridge
+iface bridge
+    bridge-vlan-aware yes
+    bridge-ports {{ bridge.interfaces|join(' ') }}
+    bridge-stp yes
+    bridge-vids {{ bridge.vlans|join(' ') }}
+
