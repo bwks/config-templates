@@ -1,0 +1,22 @@
+{% for slave in interfaces.mlag.bond_slaves %}
+auto {{ slave }}
+iface {{ slave }}
+    alias {{ interfaces.mlag.name }}
+{% if is_vx %}
+    post-up ip link set $IFACE promisc on
+{% endif %}
+
+{% endfor %}
+auto peerlink
+iface peerlink
+    bond-slaves {{ interfaces.peerlink.slaves|join(' ') }}
+    mtu {{ interfaces.mlag.mtu }}
+
+auto {{ interfaces.mlag.name }}.4094
+iface {{ interfaces.mlag.name }}.4094
+    address {{ interfaces.mlag.ipv4_address }}/{{ interfaces.mlag.ipv4_prefix_length }}
+    clagd-peer-ip {{ interfaces.mlag.peer_ipv4 }}
+    clagd-backup-ip {{ interfaces.mlag.peer_ipv4_backup }}
+    clagd-sys-mac {{ interfaces.mlag.mac }}
+    clagd-priority {{ interfaces.mlag.priority }}
+

@@ -17,6 +17,12 @@ source /etc/network/interfaces.d/*.intf
 {% endif %}
 #### End L3 Interfaces ####
 
+#### MLAG ####
+{% if interfaces.mlag.enabled %}
+{% include 'templates/cumulus/cumulus-interfaces-mlag.j2' %}
+{% endif %}
+#### End MLAG ####
+
 #### Bridge ####
 {% if interfaces.bridge.enabled %}
 {% include 'templates/cumulus/cumulus-interfaces-bridge.j2' %}
