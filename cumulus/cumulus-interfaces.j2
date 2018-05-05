@@ -4,6 +4,7 @@
 #### DO NOT DELETE ####
 source /etc/network/interfaces.d/*.intf
 {% include 'templates/cumulus/cumulus-interfaces-loopback.j2' %}
+{% include 'templates/cumulus/cumulus-interfaces-mgmt.j2' %}
 #### DO NOT DELETE ####
 
 {% if interfaces.l3 %}
