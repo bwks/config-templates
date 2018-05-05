@@ -9,7 +9,7 @@ iface {{ slave }}
 {% endfor %}
 auto peerlink
 iface peerlink
-    bond-slaves {{ interfaces.peerlink.slaves|join(' ') }}
+    bond-slaves {{ interfaces.mlag.bond_slaves|join(' ') }}
     mtu {{ interfaces.mlag.mtu }}
 
 auto {{ interfaces.mlag.name }}.4094
