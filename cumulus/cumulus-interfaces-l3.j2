@@ -11,8 +11,8 @@ iface {{ interface.name }}
 {% if interface.speed %}
     link-speed {{ interface.speed }}
 {% endif %}
-{% if interface.autoneg %}
-    link-autoneg {{ interface.autoneg }}
+{% if interface.auto_negotiation %}
+    link-autoneg {{ interface.auto_negotiation }}
 {% endif %}
 {% if interface.vrf %}
     vrf {{ interface.vrf }}
