@@ -1,0 +1,12 @@
+auto bridge
+iface bridge
+    bridge-stp on
+    bridge-ports {{ interfaces.bridge.interfaces|join(' ') }}
+    {% if interfaces.bridge.native_vlan %}
+    bridge-pvid {{ interfaces.bridge.native_vlan }}
+    {% endif %}
+    {% if interfaces.bridge.vlans %}
+    bridge-vids {{ interfaces.bridge.vlans|join(' ') }}
+    {% endif %}
+    bridge-vlan-aware yes
+
