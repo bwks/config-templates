@@ -18,7 +18,7 @@ source /etc/network/interfaces.d/*.intf
 #### End L3 Interfaces ####
 
 #### Bridge ####
-{% if bridge %}
+{% if interfaces.bridge.enabled %}
 {% include 'templates/cumulus/cumulus-interfaces-bridge.j2' %}
 {% endif %}
 #### End Bridge ####
