@@ -8,6 +8,9 @@ source /etc/network/interfaces.d/*.intf
 {% include 'templates/cumulus/cumulus-interfaces-mgmt.j2' %}
 #### DO NOT DELETE ####
 
+#### L3 Interfaces ####
 {% if interfaces.l3 %}
 {% include 'templates/cumulus/cumulus-interfaces-l3.j2' %}
 {% endif %}
+#### L3 Interfaces ####
+
