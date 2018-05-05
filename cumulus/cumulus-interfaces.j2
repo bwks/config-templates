@@ -1,0 +1,11 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+#### DO NOT DELETE ####
+source /etc/network/interfaces.d/*.intf
+{% include 'templates/cumulus/cumulus-interfaces-loopback.j2' %}
+#### DO NOT DELETE ####
+
+{% if interfaces.l3 %}
+{% include 'templates/cumulus/cumulus-interfaces-l3.j2' %}
+{% endif %}

@@ -1,0 +1,7 @@
+# The loopback network interface
+auto lo
+iface lo inet loopback
+{% for interface in interfaces.loopback %}
+    address {{ interface.ipv4_address  }}/{{ interface.ipv4_prefix_length }}
+{% endfor %}
+

@@ -1,0 +1,22 @@
+{% for interface in interfaces.l3 %}
+auto {{ interface.name }}
+iface {{ interface.name }}
+    alias {{ interface.description }}
+{% if interface.ipv4_address %}
+    address {{ interface.ipv4_address }}/{{ interface.ipv4_prefix_length }}
+{% endif %}
+{% if interface.mtu %}
+    mtu {{ interface.mtu }}
+{% endif %}
+{% if interface.speed %}
+    link-speed {{ interface.speed }}
+{% endif %}
+{% if interface.autoneg %}
+    link-autoneg {{ interface.autoneg }}
+{% endif %}
+{% if interface.vrf %}
+    vrf {{ interface.vrf }}
+{% endif %}
+
+{% endfor %}
+
