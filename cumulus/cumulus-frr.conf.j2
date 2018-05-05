@@ -1,5 +1,6 @@
 # default to using syslog. /etc/rsyslog.d/45-frr.conf places the log
 # in /var/log/frr/frr.log
+hostname {{ hostname }}
 username cumulus nopassword
 !
 service integrated-vtysh-config
